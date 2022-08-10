@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { FiSettings } from 'react-icons/fi';
 import Tooltip from '@mui/material/Tooltip';
 import './App.css'
+import { Navbar, Footer, Header, Sidebar, ThemeSettings } from './components';
+import { Dashboard, CountsAndRequests, CustomerRelated, Downloads, TrafficAndSearches } from './pages';
 
 
 function App() {
@@ -31,12 +33,12 @@ function App() {
             <div className='w-72 fixed sidebar 
             dark:bg-secondary-dark-bg 
             bg-white'>
-              Sidebar
+              <Sidebar />
             </div>
           ) : (
             <div className='w-0
             dark:bg-secondary-dark-bg'>
-              Sidebar w-0
+              <Sidebar />
             </div>
           )}
           <div className={
@@ -44,21 +46,22 @@ function App() {
           }>
             <div className='fixed md:static bg-main-bg
             dark:bg-main-dark-bg navbar w-full'>
-              Navbar
+              <Navbar />
             </div>
           </div>
 
           <div>
             <Routes>
               {/* Dashboard */}
-              <Route path='/' element='Dashboard'/>
+              <Route path='/' element={ <Dashboard/> }/>
               
               {/* Categories */}
-              <Route path='/CustomerRelated' element='Customer Related'/>
-              <Route path='/TrafficAndSearches' element='Traffic & Searches'/>
-              <Route path='/Downloads' element='Downloads'/>
-              <Route path='/CountsAndRequests' element='Counts & Requests'/>
+              <Route path='/CustomerRelated' element={ <CustomerRelated /> }/>
+              <Route path='/TrafficAndSearches' element={ <TrafficAndSearches /> } />
+              <Route path='/Downloads' element={ <Downloads /> }/>
+              <Route path='/CountsAndRequests' element={ <CountsAndRequests /> }/>
             </Routes>
+            
           </div>
 
         </div>
