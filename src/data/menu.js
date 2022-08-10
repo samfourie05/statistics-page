@@ -6,6 +6,7 @@ export const menu = [
     links: [
       {
         name: 'Home',
+        url:'home'
       },
     ],
   },
@@ -15,19 +16,19 @@ export const menu = [
     links: [
       {
         name: 'Customer Related',
-        link:''
+        url:'customer-related'
       },
       {
         name: 'Traffic & Searches',
-        link:''
+        url:'traffic-and-searches'
       },
       {
         name: 'Downloads',
-        link:''
+        url:'downloads'
       },
       {
         name: 'Counts & Requests',
-        link:''
+        url:'counts-and-requests'
       },
     ],
   },
@@ -37,7 +38,7 @@ export const menu = [
     links: [
       {
         name: 'Settings',
-        link:''
+        url:'settings'
       },
     ],
   },

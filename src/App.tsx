@@ -6,9 +6,11 @@ import './App.css'
 import { Navbar, Footer, Header, Sidebar, ThemeSettings } from './components';
 import { Dashboard, CountsAndRequests, CustomerRelated, Downloads, TrafficAndSearches } from './pages';
 
+import { useStateContext } from './context/ContextProvider' 
+
 
 function App() {
-  const activeMenu = true;
+  const { activeMenu } = useStateContext();
 
   return (
     <div>
