@@ -6,7 +6,7 @@ export const menu = [
     links: [
       {
         name: 'Home',
-        url:'home'
+        url:''
       },
     ],
   },
@@ -16,11 +16,11 @@ export const menu = [
     links: [
       {
         name: 'Customer Related',
-        url:'customer-related'
+        url:'CustomerRelated'
       },
       {
         name: 'Traffic & Searches',
-        url:'traffic-and-searches'
+        url:'TrafficAndSearches'
       },
       {
         name: 'Downloads',
@@ -28,7 +28,7 @@ export const menu = [
       },
       {
         name: 'Counts & Requests',
-        url:'counts-and-requests'
+        url:'CountsAndRequests'
       },
     ],
   },

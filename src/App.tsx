@@ -16,21 +16,6 @@ function App() {
     <div>
       <BrowserRouter>
         <div className='flex relative dark:bg-main-dark-bg'>
-          <div className='fixed right-4 bottom-4' style={ { zIndex: '1000' } }>
-            <Tooltip title='Settings'> 
-              <button type='button'
-              className='text-3xl 
-              p-3 
-              hover:drop-shadow-xl
-              hover:bg-light-gray
-              text-white'
-              style={ {background: 'blue',
-            borderRadius: '50%'} }
-              >
-                <FiSettings/>
-              </button>
-            </Tooltip>
-          </div>
           { activeMenu ? (
             <div className='w-72 fixed sidebar 
             dark:bg-secondary-dark-bg 
@@ -44,14 +29,13 @@ function App() {
             </div>
           )}
           <div className={
-            `dark:bg-main-bg bg-main-bg min-h-screen md:ml-72 w-full ${ activeMenu ? 'md:ml-72' : 'flex-2'}`
+            `dark:bg-main-bg bg-main-bg min-h-screen w-full ${ activeMenu ? 'md:ml-72' : 'flex-2'}`
           }>
             <div className='fixed md:static bg-main-bg
             dark:bg-main-dark-bg navbar w-full'>
               <Navbar />
             </div>
-          </div>
-
+          
           <div>
             <Routes>
               {/* Dashboard */}
@@ -63,7 +47,8 @@ function App() {
               <Route path='/Downloads' element={ <Downloads /> }/>
               <Route path='/CountsAndRequests' element={ <CountsAndRequests /> }/>
             </Routes>
-            
+            </div>
+
           </div>
 
         </div>

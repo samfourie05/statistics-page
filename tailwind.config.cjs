@@ -13,10 +13,11 @@ module.exports = {
       },
       backgroundColor: {
         'main-bg': '#FAFBFB',
-        'main-dark-bg': '#20232A',
+        'main-dark-bg': '#4f4f77',
         'secondary-dark-bg': '#33373E',
         'light-gray': '#F7F7F7',
         'half-transparent': 'rgba(0, 0, 0, 0.5)',
+        'light-purple':'#4f4f77'
       },
       borderWidth: {
         1: '1px',
