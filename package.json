@@ -9,9 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@amcharts/amcharts5": "^5.2.15",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
     "@mui/material": "^5.9.3",
+    "@mui/styles": "^5.9.3",
     "@syncfusion/ej2": "^19.4.48",
     "@syncfusion/ej2-react-dropdowns": "^19.4.52",
     "@syncfusion/ej2-react-grids": "^19.4.50",

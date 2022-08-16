@@ -1,6 +1,6 @@
 import React from 'react'
 
-const ChartsHeader = () => {
+const ChartsHeader = ( {chartTitle}:any  ) => {
   return (
     <div>ChartsHeader</div>
   )

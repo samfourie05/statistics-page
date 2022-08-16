@@ -24,7 +24,8 @@ const NavButton = ({ title, customFunc, icon, color, dotColor}:any) => {
 
 const Navbar = () => {
   const { activeMenu, setActiveMenu, isClicked, setIsClicked, handleClick, screenSize, setScreenSize } = useStateContext();
-
+  let clickedUserProfile = false;
+  
   useEffect(() => {
     const handleResize = () => setScreenSize(window.innerWidth);
 
@@ -62,11 +63,11 @@ const Navbar = () => {
             <MdKeyboardArrowDown className='text-gray-400 text-14'/>
           </div>
         </Tooltip>
-        
-        {isClicked.userProfile && <UserProfile/>}
+
+        {isClicked?.userProfile && <UserProfile/>}
       </div>
     </div> 
-  )
-}
+  );
+};
 
 export default Navbar
