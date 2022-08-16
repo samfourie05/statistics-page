@@ -6,9 +6,8 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 //chart type
 import * as am5percent from "@amcharts/amcharts5/percent";
 
-function ColumnChart(props) {
+function ColumnChart({ chartID }) {
   //const chart = useRef(null);
-  let chartID = props.chartID;
   console.log({ chartID });
 
   useLayoutEffect(() => {
@@ -21,7 +20,7 @@ function ColumnChart(props) {
 
     // Create chart
     // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/
-    var chart = root.container.children.push(
+    let chart = root.container.children.push(
       am5percent.PieChart.new(root, {
         endAngle: 270
       })
@@ -29,7 +28,7 @@ function ColumnChart(props) {
 
     // Create series
     // https://www.amcharts.com/docs/v5/charts/percent-charts/pie-chart/#Series
-    var series = chart.series.push(
+    let series = chart.series.push(
       am5percent.PieSeries.new(root, {
         valueField: "value",
         categoryField: "category",
