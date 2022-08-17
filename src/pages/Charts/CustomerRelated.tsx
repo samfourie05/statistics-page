@@ -17,7 +17,10 @@ import TextField from '@mui/material/TextField';
 
 const CustomerRelated = () => {
   const [range, setRange] = React.useState("");
-  const [value, setValue] = React.useState<Date | null>(
+  const [fromValue, setFromValue] = React.useState<Date | null>(
+    new Date('2022-08-18T21:11:54'),
+  );
+  const [toValue, setToValue] = React.useState<Date | null>(
     new Date('2022-08-18T21:11:54'),
   );
 
@@ -26,8 +29,12 @@ const CustomerRelated = () => {
     console.log("Date range changed! " + event.target.value);
   };
 
-  const datePickerChange = (newValue: Date | null) => {
-    setValue(newValue);
+  const fromDatePickerChange = (newValue: Date | null) => {
+    setFromValue(newValue);
+  };
+
+  const toDatePickerChange = (newValue: Date | null) => {
+    setToValue(newValue);
   };
 
   return (
@@ -72,17 +79,17 @@ const CustomerRelated = () => {
             </FormControl>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DesktopDatePicker
-                label="Date desktop"
+                label="From"
                 inputFormat="MM/dd/yyyy"
-                value={value}
-                onChange={datePickerChange}
+                value={fromValue}
+                onChange={fromDatePickerChange}
                 renderInput={(params) => <TextField {...params} />}
               />
               <DesktopDatePicker
-                label="Date desktop"
+                label="To"
                 inputFormat="MM/dd/yyyy"
-                value={value}
-                onChange={datePickerChange}
+                value={toValue}
+                onChange={toDatePickerChange}
                 renderInput={(params) => <TextField {...params} />}
               />
             </LocalizationProvider>
