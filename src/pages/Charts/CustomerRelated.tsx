@@ -10,12 +10,24 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { makeStyles } from "@mui/styles";
 import ColumnChart from "../../components/Charts/ColumnChart";
 
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
+import TextField from '@mui/material/TextField';
+
 const CustomerRelated = () => {
   const [range, setRange] = React.useState("");
+  const [value, setValue] = React.useState<Date | null>(
+    new Date('2022-08-18T21:11:54'),
+  );
 
   const handleChange = (event: SelectChangeEvent) => {
     setRange(event.target.value as string);
     console.log("Date range changed! " + event.target.value);
+  };
+
+  const datePickerChange = (newValue: Date | null) => {
+    setValue(newValue);
   };
 
   return (
@@ -58,15 +70,30 @@ const CustomerRelated = () => {
                 <MenuItem value={90}>Last 90 Days</MenuItem>
               </Select>
             </FormControl>
+            <LocalizationProvider dateAdapter={AdapterDateFns}>
+              <DesktopDatePicker
+                label="Date desktop"
+                inputFormat="MM/dd/yyyy"
+                value={value}
+                onChange={datePickerChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+              <DesktopDatePicker
+                label="Date desktop"
+                inputFormat="MM/dd/yyyy"
+                value={value}
+                onChange={datePickerChange}
+                renderInput={(params) => <TextField {...params} />}
+              />
+            </LocalizationProvider>
           </div>
         </div>
       </div>
       <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
-      <ColumnChart chartID="CustomerActvitiy"/>
+        <ColumnChart chartID="CustomerActvitiy" />
       </div>
     </div>
   );
 };
 
 export default CustomerRelated;
-
