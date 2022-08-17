@@ -16,6 +16,7 @@ import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import TextField from '@mui/material/TextField';
 
 const CustomerRelated = () => {
+  console.log("Howzit");
   const [range, setRange] = React.useState("");
   const [fromValue, setFromValue] = React.useState<Date | null>(
     new Date('2022-08-18T21:11:54'),

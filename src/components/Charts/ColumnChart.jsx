@@ -6,11 +6,13 @@ import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 //chart type
 import * as am5percent from "@amcharts/amcharts5/percent";
 
-function ColumnChart({ chartID }) {
+function ColumnChart(props) {
   //const chart = useRef(null);
+  const chartID = props.chartID;
   console.log({ chartID });
 
   useLayoutEffect(() => {
+    console.log(chartID);
     //var root = am5.Root.new("chartdiv2");
     var root = am5.Root.new(chartID);
 
@@ -80,6 +82,13 @@ function ColumnChart({ chartID }) {
     return () => root.dispose();
   }, [chartID]);
 
-  return <div id={chartID} className="w-full"></div>;
+  return (
+    <>
+      <div id={chartID} style={{ width: "100%", height: "500px" }}>
+    
+      </div>
+
+    </>
+  );
 }
 export default ColumnChart;
