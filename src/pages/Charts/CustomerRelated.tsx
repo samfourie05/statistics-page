@@ -10,11 +10,6 @@ import ThemeProvider from "@mui/material/styles/ThemeProvider";
 import { makeStyles } from "@mui/styles";
 import ColumnChart from "../../components/Charts/ColumnChart";
 
-// Chart Imports
-import * as am5 from "@amcharts/amcharts5";
-import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
-import * as am5xy from "@amcharts/amcharts5/xy";
-
 const CustomerRelated = () => {
   const [range, setRange] = React.useState("");
 

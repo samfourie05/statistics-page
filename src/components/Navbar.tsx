@@ -37,7 +37,7 @@ const Navbar = () => {
   }, []);
 
   useEffect(() => {
-    if (screenSize <= 768) {
+    if (screenSize <= 900) {
       setActiveMenu(false);
     } else {
       setActiveMenu(true);
@@ -45,7 +45,7 @@ const Navbar = () => {
   }, [screenSize]);
 
   return (
-    <div className='flex justify-between p-2  relative bg-white'>
+    <div className='flex justify-between p-2  relative'>
       <NavButton title='Menu' customFunc={() => {
         setActiveMenu((prevActiveMenu:boolean) =>
         !prevActiveMenu)}} color='light-purple' icon={<AiOutlineMenu/>}
