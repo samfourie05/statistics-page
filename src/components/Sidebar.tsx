@@ -31,7 +31,7 @@ const Sidebar = () => {
         mt-4 flex text-xl font-extrabold
         tracking-tight dark:text-white 
         text-slate-900'>
-          <img alt='logo' src={String(logoLight)} className='w-10' /><span>Stats Dashboard</span>
+          <img alt='logo' src={String(logoLight)} className='w-10' /><span>Supply Frame</span>
         </Link>
         <Tooltip title='Close'> 
               <button type='button'

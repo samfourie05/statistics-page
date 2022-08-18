@@ -1,28 +1,27 @@
 import React from "react";
-import { useStateContext } from "../../context/ContextProvider";
-import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import { bgcolor, borderColor } from "@mui/system";
-import ThemeProvider from "@mui/material/styles/ThemeProvider";
-import { makeStyles } from "@mui/styles";
 import ColumnChart from "../../components/Charts/ColumnChart";
+import ActiveUsers from "../../components/Charts/ActiveUsers";
+import Registrations from "../../components/Charts/Registrations";
+import Walkers from "../../components/Charts/Walkers";
 
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
-import TextField from '@mui/material/TextField';
+import { DesktopDatePicker } from "@mui/x-date-pickers/DesktopDatePicker";
+import TextField from "@mui/material/TextField";
+
+import Footer from "../../components/Footer";
 
 const CustomerRelated = () => {
-  console.log("Howzit");
   const [range, setRange] = React.useState("");
   const [fromValue, setFromValue] = React.useState<Date | null>(
-    new Date('2022-08-18T21:11:54'),
+    new Date("2022-07-19T21:11:54")
   );
   const [toValue, setToValue] = React.useState<Date | null>(
-    new Date('2022-08-18T21:11:54'),
+    new Date("2022-08-19T21:11:54")
   );
 
   const handleChange = (event: SelectChangeEvent) => {
@@ -97,9 +96,41 @@ const CustomerRelated = () => {
           </div>
         </div>
       </div>
-      <div className="flex m-3 flex-wrap justify-center gap-1 items-center">
-        <ColumnChart chartID="CustomerActvitiy" />
+      <div className="flex gap-3" style={{ marginLeft: 12, marginRight: 12 }}>
+        <div className="w-1/2 flex-wrap justify-center gap-1 rounded-xl bg-light-purple pt-5 pb-5">
+          <h2 className="text-2xl font-bold text-white text-center">
+            Customer Activity
+          </h2>
+          <ColumnChart chartID="CustomerActvitiy" />
+        </div>
+        <div className="w-1/2 justify-center gap-10 items-center rounded-xl bg-light-purple pt-5 pb-5">
+          <h2 className="text-2xl font-bold text-white text-center">
+            Registrations
+          </h2>
+          <ColumnChart chartID="CustomerActvitiy1" />
+        </div>
       </div>
+      <div className="flex gap-3" style={{ marginLeft: 12, marginRight: 12, marginTop:12 }}>
+        <div className="w-1/2 flex-wrap justify-center gap-1 rounded-xl bg-light-purple pt-5 pb-5">
+          <h2 className="text-2xl font-bold text-white text-center">
+            Registrations
+          </h2>
+          <Registrations chartID="Registrations" />
+        </div>
+        <div className="w-1/2 justify-center gap-10 items-center rounded-xl bg-light-purple pt-5 pb-5">
+          <h2 className="text-2xl font-bold text-white text-center">
+            Active Users
+          </h2>
+          <ActiveUsers chartID="ActiveUsers" />
+        </div>
+      </div>
+      <div className="flex gap-3 m-3">
+        <div className="w-full flex-wrap justify-center gap-1 items-center rounded-xl bg-light-purple pt-5 pb-5">
+          <h2 className="text-2xl font-bold text-white text-center">Walkers</h2>
+          <Walkers chartID="Walkers" />
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 };
