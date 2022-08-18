@@ -21,7 +21,7 @@ const Sidebar = () => {
   };
 
   return (
-    <div className='ml-3 h-screen
+    <div className='pl-3 h-screen
      pb-10'>
       { activeMenu && (<>
       <div className='flex justify-between 

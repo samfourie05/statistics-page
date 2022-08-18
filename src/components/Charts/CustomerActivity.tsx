@@ -7,7 +7,7 @@ import * as am5xy from "@amcharts/amcharts5/xy";
 //chart type
 import * as am5percent from "@amcharts/amcharts5/percent";
 
-function ColumnChart(props: any) {
+function CustomerActivity(props: any) {
   //const chart = useRef(null);
   const chartID = props.chartID;
   console.log({ chartID });
@@ -120,10 +120,6 @@ function ColumnChart(props: any) {
         value: 17153,
       },
       {
-        category: "Designers who exported parts",
-        value: 4293,
-      },
-      {
         category: "Active Designers",
         value: 80,
       },
@@ -138,22 +134,6 @@ function ColumnChart(props: any) {
       {
         category: "Active Users",
         value: 36098,
-      },
-      {
-        category: "Models Exported",
-        value: 3997855,
-      },
-      {
-        category: "Part Searches from EPW",
-        value: 56173,
-      },
-      {
-        category: "Part Searches via Web",
-        value: 1412555,
-      },
-      {
-        category: "Part Requests",
-        value: 263188,
       },
       {
         category: "Registrations",
@@ -178,4 +158,4 @@ function ColumnChart(props: any) {
     </>
   );
 }
-export default ColumnChart;
+export default CustomerActivity;

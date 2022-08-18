@@ -3,7 +3,9 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import ColumnChart from "../../components/Charts/ColumnChart";
+import CustomerActivity from "../../components/Charts/CustomerActivity";
+import PartsUsedByCustomer from "../../components/Charts/PartsUsedByCustomer";
+
 import ActiveUsers from "../../components/Charts/ActiveUsers";
 import Registrations from "../../components/Charts/Registrations";
 import Walkers from "../../components/Charts/Walkers";
@@ -42,9 +44,9 @@ const CustomerRelated = () => {
       <div className="flex flex-wrap lg:flex-nowrap justify-center">
         <div
           className=" text-white dark:text-gray-200 bg-light-purple 
-        h-44 rounded-xl w-full p-8 pt-9 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center"
+        h-44 rounded-xl w-full p-8 pt-12 m-3 bg-hero-pattern bg-no-repeat bg-cover bg-center"
         >
-          <div className="flex justify-between items-center">
+          <div className="flex justify-around items-center">
             <div>
               <p>Insights Portal - Statistics</p>
               <p className="text-3xl font-bold">Customer Related</p>
@@ -101,13 +103,13 @@ const CustomerRelated = () => {
           <h2 className="text-2xl font-bold text-white text-center">
             Customer Activity
           </h2>
-          <ColumnChart chartID="CustomerActvitiy" />
+          <CustomerActivity chartID="CustomerActvitiy" />
         </div>
         <div className="w-1/2 justify-center gap-10 items-center rounded-xl bg-light-purple pt-5 pb-5">
           <h2 className="text-2xl font-bold text-white text-center">
-            Registrations
+            Parts Used By Customers
           </h2>
-          <ColumnChart chartID="CustomerActvitiy1" />
+          <PartsUsedByCustomer chartID="PartsUsedByCustomer" />
         </div>
       </div>
       <div className="flex gap-3" style={{ marginLeft: 12, marginRight: 12, marginTop:12 }}>
