@@ -1,13 +1,14 @@
 import React, { useLayoutEffect } from "react";
 
 import * as am5 from "@amcharts/amcharts5";
-import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
 
-//chart type
-import * as am5percent from "@amcharts/amcharts5/percent";
+//state
+import { useStateContext } from '../../context/ContextProvider'; 
 
 function PartsUsedByCustomer(props: any) {
+  const {currentMode} = useStateContext();
+
   //const chart = useRef(null);
   const chartID = props.chartID;
   console.log({ chartID });
@@ -18,13 +19,16 @@ function PartsUsedByCustomer(props: any) {
     // Create root element
     // https://www.amcharts.com/docs/v5/getting-started/#Root_element
     let root = am5.Root.new(chartID);
-
+    let labelColor = am5.color(0xffffff);
+    if (currentMode === 'Light') {
+      labelColor = am5.color(0x000000);
+    }
     // Set themes
     // https://www.amcharts.com/docs/v5/concepts/themes/
     const myTheme = am5.Theme.new(root);
 
     myTheme.rule("AxisLabel").setAll({
-      fill: am5.color(0xffffff),
+      fill: labelColor,
       fontSize: "16px",
     });
 
@@ -55,7 +59,7 @@ function PartsUsedByCustomer(props: any) {
       centerY: am5.p50,
       centerX: am5.p100,
       paddingRight: 15,
-      fill: am5.color(0xffffff),
+      fill: labelColor,
     });
 
     let yAxis = chart.yAxes.push(

@@ -12,12 +12,14 @@ module.exports = {
         14: '14px',
       },
       backgroundColor: {
-        'main-bg': '#FAFBFB',
-        'main-dark-bg': '#2A2A40',
-        'secondary-dark-bg': '#33373E',
-        'light-gray': '#F7F7F7',
+        'main-bg': '#CBD2F1',
+        'main-dark-bg': '#121212',
+        'secondary-dark-bg': '#29293D',
+        'light-gray': '#CBD2F1',
+        'dark-grey': '#272727',
         'half-transparent': 'rgba(0, 0, 0, 0.5)',
-        'light-purple':'#4f4f77'
+        'light-purple':'#8787d3',
+        'dark-purple':'#4f4f77'
       },
       borderWidth: {
         1: '1px',

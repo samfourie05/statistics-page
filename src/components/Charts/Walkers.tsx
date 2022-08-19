@@ -1,30 +1,39 @@
 import React, { useLayoutEffect } from "react";
 
 import * as am5 from "@amcharts/amcharts5";
-import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
-
-//chart type
-import * as am5percent from "@amcharts/amcharts5/percent";
+//state
+import { useStateContext } from '../../context/ContextProvider'; 
 
 function Walkers(props: any) {
+  const {currentMode} = useStateContext();
+
   //const chart = useRef(null);
   const chartID = props.chartID;
   console.log({ chartID });
 
   useLayoutEffect(() => {
     console.log(chartID);
-    /* Chart code */
-    // Create root element
-    // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+
     /* Chart code */
     // Create root element
     // https://www.amcharts.com/docs/v5/getting-started/#Root_element
     let root = am5.Root.new(chartID);
-
+    let labelColor = am5.color(0xffffff);
+    if (currentMode === 'Light') {
+      labelColor = am5.color(0x000000);
+    }
+    
     // Set themes
     // https://www.amcharts.com/docs/v5/concepts/themes/
-    root.setThemes([am5themes_Animated.new(root)]);
+    const myTheme = am5.Theme.new(root);
+
+    myTheme.rule("AxisLabel").setAll({
+      fill: labelColor,
+      fontSize: "16px",
+    });
+
+    root.setThemes([myTheme]);
 
     // Create chart
     // https://www.amcharts.com/docs/v5/charts/xy-chart/
@@ -201,17 +210,6 @@ function Walkers(props: any) {
     );
     cursor.lineY.set("visible", false);
 
-    // Set themes
-    // https://www.amcharts.com/docs/v5/concepts/themes/
-    const myTheme = am5.Theme.new(root);
-
-    myTheme.rule("AxisLabel").setAll({
-      fill: am5.color(0xffffff),
-      fontSize: "16px",
-    });
-
-    root.setThemes([myTheme]);
-
     // Add legend
     // https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
     let legend = chart.rightAxesContainer.children.push(
@@ -265,7 +263,7 @@ function Walkers(props: any) {
     legend.valueLabels.template.setAll({
       width: am5.p100,
       textAlign: "left",
-      fill: am5.color(0xffffff),
+      fill: labelColor,
     });
 
     // It's is important to set legend data after all the events are set on template, otherwise events won't be copied

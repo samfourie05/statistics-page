@@ -1,30 +1,39 @@
 import React, { useLayoutEffect } from "react";
 
 import * as am5 from "@amcharts/amcharts5";
-import am5themes_Animated from "@amcharts/amcharts5/themes/Animated";
 import * as am5xy from "@amcharts/amcharts5/xy";
-
-//chart type
-import * as am5percent from "@amcharts/amcharts5/percent";
+//state
+import { useStateContext } from '../../context/ContextProvider'; 
 
 function Registrations(props: any) {
+  const {currentMode} = useStateContext();
+
   //const chart = useRef(null);
   const chartID = props.chartID;
   console.log({ chartID });
 
   useLayoutEffect(() => {
     console.log(chartID);
-    /* Chart code */
-    // Create root element
-    // https://www.amcharts.com/docs/v5/getting-started/#Root_element
+
     /* Chart code */
     // Create root element
     // https://www.amcharts.com/docs/v5/getting-started/#Root_element
     let root = am5.Root.new(chartID);
-
+    let labelColor = am5.color(0xffffff);
+    if (currentMode === 'Light') {
+      labelColor = am5.color(0x000000);
+    }
+    
     // Set themes
     // https://www.amcharts.com/docs/v5/concepts/themes/
-    root.setThemes([am5themes_Animated.new(root)]);
+    const myTheme = am5.Theme.new(root);
+
+    myTheme.rule("AxisLabel").setAll({
+      fill: labelColor,
+      fontSize: "16px",
+    });
+
+    root.setThemes([myTheme]);
 
     // Create chart
     // https://www.amcharts.com/docs/v5/charts/xy-chart/
@@ -63,6 +72,15 @@ function Registrations(props: any) {
 
     // Create axes
     // https://www.amcharts.com/docs/v5/charts/xy-chart/axes/
+    let yRenderer = am5xy.AxisRendererY.new(root, { minGridDistance: 30 });
+    yRenderer.labels.template.setAll({
+      rotation: 0,
+      centerY: am5.p50,
+      centerX: am5.p100,
+      paddingRight: 15,
+      fill: labelColor,
+    });
+
     let xAxis = chart.xAxes.push(
       am5xy.DateAxis.new(root, {
         maxDeviation: 0.2,
@@ -77,7 +95,7 @@ function Registrations(props: any) {
 
     let yAxis = chart.yAxes.push(
       am5xy.ValueAxis.new(root, {
-        renderer: am5xy.AxisRendererY.new(root, {}),
+        renderer: yRenderer,
       })
     );
 
@@ -166,17 +184,6 @@ function Registrations(props: any) {
     );
     cursor.lineY.set("visible", false);
 
-    // Set themes
-    // https://www.amcharts.com/docs/v5/concepts/themes/
-    const myTheme = am5.Theme.new(root);
-
-    myTheme.rule("AxisLabel").setAll({
-      fill: am5.color(0xffffff),
-      fontSize: "16px",
-    });
-
-    root.setThemes([myTheme]);
-
     // Add legend
     // https://www.amcharts.com/docs/v5/charts/xy-chart/legend-xy-series/
     let legend = chart.rightAxesContainer.children.push(
@@ -188,7 +195,7 @@ function Registrations(props: any) {
     );
 
     legend.data.setAll([{
-      color: am5.color(0x297373)
+      fill: am5.color(0x297373)
     }]);
 
     // When legend item container is hovered, dim all the series except the hovered one
@@ -230,7 +237,7 @@ function Registrations(props: any) {
     legend.valueLabels.template.setAll({
       width: am5.p100,
       textAlign: "left",
-      fill: am5.color(0xffffff),
+      fill: labelColor,
     });
 
     // It's is important to set legend data after all the events are set on template, otherwise events won't be copied
