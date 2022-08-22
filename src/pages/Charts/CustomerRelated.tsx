@@ -3,9 +3,10 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
-import CustomerActivity from "../../components/Charts/CustomerActivity";
-import PartsUsedByCustomer from "../../components/Charts/PartsUsedByCustomer";
 
+import RegistrationActivity from "../../components/Charts/RegistrationActivity";
+import PartsUsedByCustomer from "../../components/Charts/PartsUsedByCustomer";
+import CustomerActivity from "../../components/Charts/CustomerActivity";
 import ActiveUsers from "../../components/Charts/ActiveUsers";
 import Registrations from "../../components/Charts/Registrations";
 import Walkers from "../../components/Charts/Walkers";
@@ -103,18 +104,18 @@ const CustomerRelated = () => {
       <div className="flex gap-3" style={{ marginLeft: 12, marginRight: 12 }}>
         <div className="w-1/2 flex-wrap justify-center gap-1 rounded-xl bg-white dark:bg-secondary-dark-bg pt-5 pb-5">
           <h2 className="text-2xl font-bold dark:text-white text-center">
-            Customer Activity
+            Registration Activity
           </h2>
-          <CustomerActivity chartID={currentMode === 'Light' ? 'customerActivityLight' : 'customerActivityDark'}/>
+          <RegistrationActivity chartID={currentMode === 'Light' ? 'customerActivityLight' : 'customerActivityDark'}/>
         </div>
         <div className="w-1/2 justify-center gap-10 items-center rounded-xl bg-white dark:bg-secondary-dark-bg pt-5 pb-5">
           <h2 className="text-2xl font-bold dark:text-white text-center">
-            Parts Used By Customers
+            Customer Activity
           </h2>
-          <PartsUsedByCustomer chartID={currentMode === 'Light' ? 'PartsUsedLight' : 'PartsUsedDark'} />
+          <CustomerActivity  />
         </div>
       </div>
-      <div className="flex gap-3" style={{ marginLeft: 12, marginRight: 12, marginTop:12 }}>
+      {/* <div className="flex gap-3" style={{ marginLeft: 12, marginRight: 12, marginTop:12 }}>
         <div className="w-1/2 flex-wrap justify-center gap-1 rounded-xl bg-white dark:bg-secondary-dark-bg pt-5 pb-5">
           <h2 className="text-2xl font-bold dark:text-white text-center">
             Registrations
@@ -133,8 +134,7 @@ const CustomerRelated = () => {
           <h2 className="text-2xl font-bold dark:text-white text-center">Walkers</h2>
           <Walkers chartID={currentMode === 'Light' ? 'walkersLight' : 'walkersDark'} />
         </div>
-      </div>
-      <Footer />
+      </div> */}
     </div>
   );
 };
