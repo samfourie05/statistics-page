@@ -1,4 +1,5 @@
 import React, { useLayoutEffect } from "react";
+import axios from "axios"; 
 
 import * as am5 from "@amcharts/amcharts5";
 import * as am5xy from "@amcharts/amcharts5/xy";
@@ -8,7 +9,31 @@ import { useStateContext } from '../../context/ContextProvider';
 import { DateTime } from "@syncfusion/ej2/charts";
 
 function RegistrationActivity(props: any) {
-  getUsers();
+  //const totalRegistrations = await getTotalRegistrations();
+  // Set data
+  let data = [
+    {
+      category: "Total Customers",
+      value: 640899,
+    },
+    {
+      category: "User Registration Attempts",
+      value: 779787,
+    },
+    {
+      value: 634542,
+      category: "Registered Users",
+    },
+  ];
+
+  React.useEffect(() => {
+    axios.get("http://localhost:3001/api/RegistrationActivity/GetTotalRegistrations").then((response) => {
+      response.data[0].category = "Registrations";
+      data = [...data, response.data[0]];
+      console.log(data);
+    });
+  }, []);
+
   const {currentMode} = useStateContext();
   //const chart = useRef(null);
   const chartID = props.chartID;
@@ -112,26 +137,6 @@ function RegistrationActivity(props: any) {
       return chart.get("colors").getIndex(series.columns.indexOf(target));
     });
 
-    // Set data
-    let data = [
-      {
-        category: "Total Customers",
-        value: 640899,
-      },
-      {
-        category: "User Registration Attempts",
-        value: 779787,
-      },
-      {
-        category: "Registered Users",
-        value: 634542,
-      },
-      {
-        category: "Registrations",
-        value: 263188,
-      },
-    ];
-
     yAxis.data.setAll(data);
     series.data.setAll(data);
 
@@ -149,54 +154,5 @@ function RegistrationActivity(props: any) {
     </>
   );
 }
-
-type Data = {
-  id: number;
-  totalRegistrations: number;
-  registeredUsers: number;
-  registrationAttempts: number;
-  totalCustomers: number;
-  date: DateTime;
-};
-
-type GetUsersResponse = {
-  data: Data[];
-};
-
-async function getUsers() {
-  console.log("CALLED");
-  try {
-    // 👇️ const response: Response
-    const response = await fetch('http://localhost:3001/api/GetRegistrationActivity', {
-      method: 'GET',
-      headers: {
-        Accept: 'application/json',
-      },
-    });
-
-    console.log("FINISHED");
-
-
-    if (!response.ok) {
-      throw new Error(`Error! status: ${response.status}`);
-    }
-
-    // 👇️ const result: GetUsersResponse
-    const result = (await response.json()) as GetUsersResponse;
-
-    console.log('result is: ', JSON.stringify(result, null, 4));
-
-    return result;
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log('error message: ', error.message);
-      return error.message;
-    } else {
-      console.log('unexpected error: ', error);
-      return 'An unexpected error occurred';
-    }
-  }
-}
-
 
 export default RegistrationActivity;

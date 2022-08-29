@@ -68,6 +68,28 @@ app.get("/api/GetRegistrationActivity", (req, res) => {
   });
 });
 
+app.get("/api/RegistrationActivity/GetTotalRegistrations", (req, res) => {
+  //connect to database
+  mssql.connect(config, function (err) {
+    if (err) {
+      console.log(err);
+    }
+    // create the request
+    var request = new mssql.Request();
+    //database query
+    request.query(
+      "SELECT SUM([TotalRegistrations])AS 'value' FROM [DesignSenseStatistics].[dbo].[RegistrationActivity]",
+      function (err, recordSet) {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send(recordSet.recordset);
+        }
+      }
+    );
+  });
+});
+
 app.listen(3001, () => {
   console.log("Running on port 3001");
 });
