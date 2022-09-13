@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useState, useLayoutEffect } from "react";
 import axios from "axios"; 
 
 import * as am5 from "@amcharts/amcharts5";
@@ -6,34 +6,45 @@ import * as am5xy from "@amcharts/amcharts5/xy";
 
 //state
 import { useStateContext } from '../../context/ContextProvider'; 
-import { DateTime } from "@syncfusion/ej2/charts";
 
 function RegistrationActivity(props: any) {
   //const totalRegistrations = await getTotalRegistrations();
   // Set data
-  let data = [
-    {
-      category: "Total Customers",
-      value: 640899,
-    },
-    {
-      category: "User Registration Attempts",
-      value: 779787,
-    },
-    {
-      value: 634542,
-      category: "Registered Users",
-    },
-  ];
+  var data:any = [];
+  const [tempData, setTempData] = useState([]);
+  const [isActive, setIsActive] = useState(false);
+
+  const updateData = (data: any) => {
+    setTempData(data);
+  };
 
   React.useEffect(() => {
     axios.get("http://localhost:3001/api/RegistrationActivity/GetTotalRegistrations").then((response) => {
       response.data[0].category = "Registrations";
       data = [...data, response.data[0]];
+    });
+  }, []);
+  React.useEffect(() => {
+    axios.get("http://localhost:3001/api/RegistrationActivity/GetRegisteredUsers").then((response) => {
+      response.data[0].category = "Registered Users";
+      data = [...data, response.data[0]];
+    });
+  }, []);
+  React.useEffect(() => {
+    axios.get("http://localhost:3001/api/RegistrationActivity/GetRegistrationAttempts").then((response) => {
+      response.data[0].category = "Registration Attempts";
+      data = [...data, response.data[0]];
+    });
+  }, []);
+  React.useEffect(() => {
+    axios.get("http://localhost:3001/api/RegistrationActivity/GetTotalCustomers").then((response) => {
+      response.data[0].category = "Total Customers";
+      data = [...data, response.data[0]];
+      updateData(data);
       console.log(data);
     });
   }, []);
-
+  console.log(data);
   const {currentMode} = useStateContext();
   //const chart = useRef(null);
   const chartID = props.chartID;
@@ -112,7 +123,7 @@ function RegistrationActivity(props: any) {
         yAxis: yAxis,
         valueXField: "value",
         sequencedInterpolation: true,
-        categoryYField: "category",
+        categoryYField: "category",//
       })
     );
 
@@ -130,15 +141,15 @@ function RegistrationActivity(props: any) {
 
     series.columns.template.setAll({ cornerRadiusTR: 5, cornerRadiusBR: 5 });
     series.columns.template.adapters.add("fill", function (fill, target) {
-      return chart.get("colors").getIndex(series.columns.indexOf(target));
+      return chart?.get("colors")?.getIndex(series.columns.indexOf(target));
     });
 
     series.columns.template.adapters.add("stroke", function (stroke, target) {
-      return chart.get("colors").getIndex(series.columns.indexOf(target));
+      return chart?.get("colors")?.getIndex(series.columns.indexOf(target));
     });
 
-    yAxis.data.setAll(data);
-    series.data.setAll(data);
+    yAxis.data.setAll(tempData);
+    series.data.setAll(tempData);
 
     // Make stuff animate on load
     // https://www.amcharts.com/docs/v5/concepts/animations/
@@ -154,5 +165,6 @@ function RegistrationActivity(props: any) {
     </>
   );
 }
+
 
 export default RegistrationActivity;

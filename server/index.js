@@ -41,7 +41,16 @@ app.use(cors(corsOptions));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/api/GetRegistrationActivity", (req, res) => {
+//Get all the data for Registration Activity
+app.get("/api/RegistrationActivity/GetData/:startYear(\\d{4})-:startMonth(\\d{2})-:startDay(\\d{2})/:endYear(\\d{4})-:endMonth(\\d{2})-:endDay(\\d{2})", (req, res) => {
+  let startDate = req.params.startYear + "-" + req.params.startMonth + "-" + req.params.startDay;
+  let endDate = req.params.endYear + "-" + req.params.endMonth + "-" + req.params.endDay;
+
+  // let endDate = new Date(
+  //   +req.params.endYear,
+  //   +req.params.endMonth - 1,
+  //   +req.params.endDay
+  // );
   //connect to database
   mssql.connect(config, function (err) {
     if (err) {
@@ -49,26 +58,58 @@ app.get("/api/GetRegistrationActivity", (req, res) => {
     }
     // create the request
     var request = new mssql.Request();
+    var dataList = [];
     //database query
     request.query(
-      "SELECT [TotalRegistrations] AS 'Total Registrations'" +
-        ",[RegisteredUsers] AS 'Registered Users'" +
-        ",[RegistrationAttempts] AS 'Registration Attempts'" +
-        ",[TotalCustomers] AS 'Total Customers'" +
-        ",[Date]" +
-        "FROM [DesignSenseStatistics].[dbo].[RegistrationActivity]",
+      "SELECT SUM([TotalRegistrations])AS 'value', 'Total Registrations' as 'category' FROM [DesignSenseStatistics].[dbo].[RegistrationActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
       function (err, recordSet) {
         if (err) {
           console.log(err);
         } else {
-          res.send(recordSet.recordset);
+          dataList.push(recordSet.recordset[0]);
+          request.query(
+            "SELECT SUM([RegisteredUsers])AS 'value', 'Registered Users' as 'category' FROM [DesignSenseStatistics].[dbo].[RegistrationActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
+            function (err, recordSet) {
+              if (err) {
+                console.log(err);
+              } else {
+                dataList.push(recordSet.recordset[0]);
+                request.query(
+                  "SELECT SUM([RegistrationAttempts])AS 'value', 'Registration Attempts' as 'category' FROM [DesignSenseStatistics].[dbo].[RegistrationActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
+                  function (err, recordSet) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      dataList.push(recordSet.recordset[0]);
+                      request.query(
+                        "SELECT SUM([TotalCustomers])AS 'value', 'Total Customers' as 'category' FROM [DesignSenseStatistics].[dbo].[RegistrationActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
+                        function (err, recordSet) {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            dataList.push(recordSet.recordset[0]);
+                            res.send(dataList);
+            
+                          }
+                        }
+                      );
+                    }
+                  }
+                );
+              }
+            }
+          );
         }
       }
     );
   });
 });
 
-app.get("/api/RegistrationActivity/GetTotalRegistrations", (req, res) => {
+//Get all the data for Customer Activity
+app.get("/api/CustomerActivity/GetData/:startYear(\\d{4})-:startMonth(\\d{2})-:startDay(\\d{2})/:endYear(\\d{4})-:endMonth(\\d{2})-:endDay(\\d{2})", (req, res) => {
+  let startDate = req.params.startYear + "-" + req.params.startMonth + "-" + req.params.startDay;
+  let endDate = req.params.endYear + "-" + req.params.endMonth + "-" + req.params.endDay;
+  
   //connect to database
   mssql.connect(config, function (err) {
     if (err) {
@@ -76,14 +117,56 @@ app.get("/api/RegistrationActivity/GetTotalRegistrations", (req, res) => {
     }
     // create the request
     var request = new mssql.Request();
+    var dataList = [];
     //database query
     request.query(
-      "SELECT SUM([TotalRegistrations])AS 'value' FROM [DesignSenseStatistics].[dbo].[RegistrationActivity]",
+      "SELECT SUM([ActiveUsers])AS 'value', 'Active Users' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
       function (err, recordSet) {
         if (err) {
           console.log(err);
         } else {
-          res.send(recordSet.recordset);
+          dataList.push(recordSet.recordset[0]);
+          request.query(
+            "SELECT SUM([ModelsExported])AS 'value', 'Models Exported' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
+            function (err, recordSet) {
+              if (err) {
+                console.log(err);
+              } else {
+                dataList.push(recordSet.recordset[0]);
+                request.query(
+                  "SELECT SUM([DesignersWhoExportedParts])AS 'value', 'Designers Who Exported Parts' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
+                  function (err, recordSet) {
+                    if (err) {
+                      console.log(err);
+                    } else {
+                      dataList.push(recordSet.recordset[0]);
+                      request.query(
+                        "SELECT SUM([PartSearchesViaWeb])AS 'value', 'Part Searches Via Web' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
+                        function (err, recordSet) {
+                          if (err) {
+                            console.log(err);
+                          } else {
+                            dataList.push(recordSet.recordset[0]);
+                            request.query(
+                              "SELECT SUM([PartRequests])AS 'value', 'Part Requests' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" + startDate + "' AND [Date] <= '" + endDate + "'",
+                              function (err, recordSet) {
+                                if (err) {
+                                  console.log(err);
+                                } else {
+                                  dataList.push(recordSet.recordset[0]);
+                                  res.send(dataList);
+                                }
+                              }
+                            );
+                          }
+                        }
+                      );
+                    }
+                  }
+                );
+              }
+            }
+          );
         }
       }
     );
