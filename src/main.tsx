@@ -2,13 +2,16 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './index.css'
-import { ContextProvider } from './context/ContextProvider'
-
+import {Provider} from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
+import store from './redux/store/store'
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
-  <ContextProvider>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </ContextProvider>
+  <React.StrictMode>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </React.StrictMode>
 )

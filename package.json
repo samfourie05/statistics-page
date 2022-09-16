@@ -1,38 +1,44 @@
 {
-  "name": "statistics-page",
+  "homepage": "https://samfourie05.github.io/design-sense-statistics",
+  "name": "design-sense-statistics",
   "private": true,
   "version": "0.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "build": "tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
-    "@amcharts/amcharts5": "^5.2.15",
+    "@amcharts/amcharts5": "^5.2.19",
     "@emotion/react": "^11.10.0",
     "@emotion/styled": "^11.10.0",
-    "@mui/material": "^5.9.3",
-    "@mui/styles": "^5.9.3",
-    "@syncfusion/ej2": "^19.4.48",
-    "@syncfusion/ej2-react-dropdowns": "^19.4.52",
-    "@syncfusion/ej2-react-grids": "^19.4.50",
-    "@syncfusion/ej2-react-inputs": "^19.4.52",
-    "@syncfusion/ej2-react-popups": "^19.4.52",
+    "@mui/material": "^5.10.2",
+    "@mui/x-date-pickers": "^5.0.1",
+    "@reduxjs/toolkit": "^1.8.5",
+    "axios": "^0.27.2",
+    "date-fns": "^2.29.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
-    "react-router-dom": "^6.3.0"
+    "react-redux": "^8.0.2",
+    "react-router-dom": "^6.3.0",
+    "react-spinners": "^0.13.4",
+    "styled-components": "^5.3.5",
+    "tailwind": "^4.0.0"
   },
   "devDependencies": {
-    "@types/node": "^18.6.5",
-    "@types/react": "^18.0.15",
+    "@types/react": "^18.0.18",
     "@types/react-dom": "^18.0.6",
-    "@vitejs/plugin-react": "^2.0.0",
+    "@types/styled-components": "^5.1.26",
+    "@vitejs/plugin-react": "^2.0.1",
     "autoprefixer": "^10.4.8",
-    "postcss": "^8.4.14",
-    "tailwindcss": "^3.1.7",
+    "gh-pages": "^4.0.0",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8",
     "typescript": "^4.6.4",
-    "vite": "^3.0.0"
+    "vite": "^3.0.7"
   }
 }
