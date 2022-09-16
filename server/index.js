@@ -9,8 +9,6 @@ const cors = require("cors");
 const config = {
   server: "(localdb)\\Local_New",
   user: "sa",
-  password: "PeanutJacket215",
-  database: "DesignSenseStatistics",
   port: 3001,
   connectTimeout: 30000,
   driver: "msnodesqlv8",
@@ -21,9 +19,6 @@ const config = {
 
 const db = mysql.createPool({
   host: "(localdb)\\Local_New",
-  user: "sa",
-  password: "PeanutJacket2156",
-  database: "DesignSenseStatistics",
   port: 3001,
   connectTimeout: 30000,
   options: {
@@ -54,11 +49,6 @@ app.get(
     let endDate =
       req.params.endYear + "-" + req.params.endMonth + "-" + req.params.endDay;
 
-    // let endDate = new Date(
-    //   +req.params.endYear,
-    //   +req.params.endMonth - 1,
-    //   +req.params.endDay
-    // );
     //connect to database
     mssql.connect(config, function (err) {
       if (err) {
@@ -123,8 +113,7 @@ app.get(
                             if (err) {
                               console.log(err);
                             } else {
-                              const totalCustomers =
-                                recordSet.recordset[0];
+                              const totalCustomers = recordSet.recordset[0];
                               if (totalCustomers.value === null) {
                                 totalCustomers.value = 0;
                               }
@@ -178,7 +167,11 @@ app.get(
           if (err) {
             console.log(err);
           } else {
-            dataList.push(recordSet.recordset[0]);
+            const activeUsers = recordSet.recordset[0];
+            if (activeUsers.value === null) {
+              activeUsers.value = 0;
+            }
+            dataList.push(activeUsers);
             request.query(
               "SELECT SUM([ModelsExported])AS 'value', 'Models Exported' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" +
                 startDate +
@@ -189,7 +182,11 @@ app.get(
                 if (err) {
                   console.log(err);
                 } else {
-                  dataList.push(recordSet.recordset[0]);
+                  const modelsExported = recordSet.recordset[0];
+                  if (modelsExported.value === null) {
+                    modelsExported.value = 0;
+                  }
+                  dataList.push(modelsExported);
                   request.query(
                     "SELECT SUM([DesignersWhoExportedParts])AS 'value', 'Designers Who Exported Parts' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" +
                       startDate +
@@ -200,7 +197,12 @@ app.get(
                       if (err) {
                         console.log(err);
                       } else {
-                        dataList.push(recordSet.recordset[0]);
+                        const designersWhoExportedParts =
+                          recordSet.recordset[0];
+                        if (designersWhoExportedParts.value === null) {
+                          designersWhoExportedParts.value = 0;
+                        }
+                        dataList.push(designersWhoExportedParts);
                         request.query(
                           "SELECT SUM([PartSearchesViaWeb])AS 'value', 'Part Searches Via Web' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" +
                             startDate +
@@ -211,7 +213,11 @@ app.get(
                             if (err) {
                               console.log(err);
                             } else {
-                              dataList.push(recordSet.recordset[0]);
+                              const partSearchesViaWeb = recordSet.recordset[0];
+                              if (partSearchesViaWeb.value === null) {
+                                partSearchesViaWeb.value = 0;
+                              }
+                              dataList.push(partSearchesViaWeb);
                               request.query(
                                 "SELECT SUM([PartRequests])AS 'value', 'Part Requests' as 'category' FROM [DesignSenseStatistics].[dbo].[CustomerActivity] WHERE [Date] >= '" +
                                   startDate +
@@ -222,7 +228,12 @@ app.get(
                                   if (err) {
                                     console.log(err);
                                   } else {
-                                    dataList.push(recordSet.recordset[0]);
+                                    const partRequests =
+                                      recordSet.recordset[0];
+                                    if (partRequests.value === null) {
+                                      partRequests.value = 0;
+                                    }
+                                    dataList.push(partRequests);
                                     res.send(dataList);
                                   }
                                 }
